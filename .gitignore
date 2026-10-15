@@ -1,0 +1,6 @@
+# Vercel build output
+.vercel/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db

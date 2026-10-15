@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SONAR — Soluções em Acessibilidade Audiovisual (@sonar_acessibilidade)</title>
+  <title>SONAR — Soluções em Acessibilidade Audiovisual</title>
   <meta name="description" content="Tornamos o audiovisual acessível! Especialistas em Audiodescrição, LSE com Foley para animações e cinema, Janela de Libras e Mediação Cultural para festivais e editais públicos.">
   
   <!-- Favicon e Fontes -->
@@ -19,10 +19,33 @@
 </head>
 <body>
 
+  <!-- Barra Superior de Acessibilidade Governamental & Cultural (ABNT NBR 15290 / WCAG 2.1) -->
+  <aside class="a11y-toolbar" aria-label="Recursos de Acessibilidade">
+    <div class="container a11y-container">
+      <div class="a11y-left">
+        <a href="#main-content" class="a11y-skip-link">Pular para o conteúdo principal [Alt + 1]</a>
+        <span style="opacity: 0.3;" aria-hidden="true">•</span>
+        <span class="a11y-badge">
+          <i data-lucide="shield-check"></i>
+          <span>Padrão ABNT NBR 15290 & ANCINE</span>
+        </span>
+      </div>
+      <div class="a11y-controls">
+        <button id="btnDecreaseFont" class="a11y-btn" title="Diminuir fonte" aria-label="Diminuir tamanho da fonte">A-</button>
+        <button id="btnResetFont" class="a11y-btn" title="Fonte padrão" aria-label="Tamanho normal da fonte">A</button>
+        <button id="btnIncreaseFont" class="a11y-btn" title="Aumentar fonte" aria-label="Aumentar tamanho da fonte">A+</button>
+        <button id="btnToggleContrast" class="a11y-btn" title="Alternar modo de alto contraste" aria-label="Modo Alto Contraste">
+          <i data-lucide="sun-moon"></i>
+          <span>Alto Contraste</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
   <!-- Navbar Refinada e Fina -->
-  <header class="navbar">
+  <header class="navbar" role="banner">
     <div class="container nav-container">
-      <a href="#" class="brand-link">
+      <a href="#" class="brand-link" aria-label="Página inicial da SONAR Acessibilidade">
         <img src="./assets/img/logo_sonar_hd.jpg" alt="Logo SONAR" class="brand-logo-img">
         <div>
           <span class="brand-title">SONAR</span>
@@ -30,22 +53,27 @@
         </div>
       </a>
 
-      <nav>
-        <ul class="nav-links">
+      <!-- Botão Hambúrguer para Celular -->
+      <button id="btnMobileMenu" class="mobile-menu-btn" aria-label="Abrir menu de navegação" aria-expanded="false">
+        <i data-lucide="menu"></i>
+      </button>
+
+      <nav aria-label="Navegação Principal">
+        <ul id="navLinks" class="nav-links">
           <li><a href="#pilares">Pilares</a></li>
           <li><a href="#portfolio">Projetos Reais</a></li>
           <li><a href="#servicos">Serviços</a></li>
           <li><a href="#comparativo">LSE & Foley</a></li>
           <li><a href="#calculadora">Simular Valores</a></li>
-
+          <li><a href="#contato">Contato</a></li>
           <li>
-            <a href="https://instagram.com/sonar_acessibilidade" target="_blank" rel="noopener" class="nav-instagram-pill" title="Instagram Oficial da Sonar">
+            <a href="https://instagram.com/sonar_acessibilidade" target="_blank" rel="noopener" class="nav-instagram-pill" title="Visite o Instagram da Sonar">
               <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
               </svg>
-              <span>@sonar_acessibilidade</span>
+              <span>Instagram</span>
             </a>
           </li>
           <li>
@@ -57,6 +85,9 @@
       </nav>
     </div>
   </header>
+
+  <!-- Conteúdo Principal -->
+  <main id="main-content">
 
   <!-- Hero Section com Split de Prova Social Real -->
   <section class="hero-section">
@@ -168,7 +199,7 @@
     <div class="container">
       <div class="section-header">
         <div class="badge-pill">Galeria de Projetos Reais</div>
-        <h2 class="section-title">Em Cena com a Sonar (@sonar_acessibilidade)</h2>
+        <h2 class="section-title">Em Cena com a Sonar</h2>
         <p class="section-sub">
           Confira registros da nossa atuação prática em mostras internacionais, festivais de cinema, espetáculos teatrais e mediação acessível.
         </p>
@@ -269,7 +300,7 @@
             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
           </svg>
-          <span>Acompanhe todos os projetos no @sonar_acessibilidade &rarr;</span>
+          <span>Acompanhe nossos bastidores e projetos no Instagram &rarr;</span>
         </a>
       </div>
     </div>
@@ -288,14 +319,20 @@
 
       <div style="text-align: center; margin-bottom: 1.5rem;">
         <span id="demoSceneTitle" style="font-weight: 800; color: var(--sonar-coral); font-size: 1.15rem;">
-          Cena 1: Curta-Metragem de Animação sem Diálogos
+          Cena 1: Suspense e Infiltração — Curta Sem Diálogos
         </span>
-        <div style="margin-top: 0.6rem; display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+        <div style="margin-top: 0.8rem; display: flex; gap: 0.65rem; justify-content: center; flex-wrap: wrap;">
           <button id="btnNextScene" class="btn btn-outline btn-sm">
-            <i data-lucide="refresh-cw"></i> Alternar Cena de Exemplo
+            <i data-lucide="refresh-cw"></i> Alternar Cena
           </button>
-          <button id="btnPlayFoleyCue" class="btn btn-coral btn-sm btn-shimmer">
-            <i data-lucide="volume-2"></i> Ouvir Foley Sintetizado
+          <button id="btnPlayFoleyCue" class="btn btn-outline btn-sm" style="border-color: rgba(244, 63, 94, 0.45); color: #fff;">
+            <i data-lucide="volume-2"></i> Ouvir Foley Acústico (LSE)
+          </button>
+          <button id="btnPlayAdVoice" class="btn btn-outline btn-sm" style="border-color: rgba(250, 204, 21, 0.45); color: #fff;">
+            <i data-lucide="mic"></i> Ouvir Audiodescrição (Voz AD)
+          </button>
+          <button id="btnPlayFullExp" class="btn btn-coral btn-sm btn-shimmer">
+            <i data-lucide="sparkles"></i> Reproduzir Experiência Completa
           </button>
         </div>
       </div>
@@ -334,6 +371,23 @@
           </p>
         </div>
 
+      </div>
+
+      <!-- Faixa de Audiodescrição Sincronizada -->
+      <div id="demoAdBox" class="glass-panel demo-ad-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; flex-wrap: wrap; gap: 0.5rem;">
+          <div class="demo-ad-badge">
+            <i data-lucide="mic"></i>
+            <span>Audiodescrição Cênica em Tempo Real (AD)</span>
+          </div>
+          <span id="adStatusBadge" style="font-size: 0.76rem; color: var(--text-soft); display: inline-flex; align-items: center; gap: 0.35rem;">
+            <i data-lucide="volume-2" style="width: 14px; height: 14px; color: var(--sonar-amber);"></i>
+            <span>Síntese de voz cênica (ABNT NBR 16452)</span>
+          </span>
+        </div>
+        <p id="demoAdText" class="demo-ad-text">
+          "Câmera lenta. A maçaneta enferrujada gira milimetricamente. Uma sombra alta se projeta pelo assoalho de tábua corrida, revelando passos cautelosos em direção à penumbra."
+        </p>
       </div>
     </div>
   </section>
@@ -530,6 +584,8 @@
 
 
 
+  </main>
+
   <!-- Footer Refinado -->
   <footer>
     <div class="container">
@@ -551,13 +607,13 @@
           <a href="https://wa.me/558195925442" target="_blank" rel="noopener" class="btn btn-coral btn-sm">
             <i data-lucide="message-circle"></i> +55 (81) 9592-5442
           </a>
-          <a href="https://instagram.com/sonar_acessibilidade" target="_blank" rel="noopener" class="nav-instagram-pill">
+          <a href="https://instagram.com/sonar_acessibilidade" target="_blank" rel="noopener" class="nav-instagram-pill" title="Acesse o perfil oficial no Instagram">
             <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
               <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
               <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
             </svg>
-            <span>@sonar_acessibilidade</span>
+            <span>Instagram Oficial</span>
           </a>
         </div>
       </div>

@@ -2,150 +2,136 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Preços unitários por minuto (R$/minuto)
   const RATES = {
-    lse: 35.0,     // LSE com Foley & Sonoplastia
-    ad: 55.0,      // Audiodescrição Roteirizada & Gravada
-    libras: 45.0   // Janela de Libras com Intérprete Certificado
+    lse: 35.0,     // LSE com Foley & Sonoplastia (ABNT NBR 15290)
+    ad: 55.0,      // Audiodescrição Roteirizada & Gravada (ABNT NBR 16452)
+    libras: 60.0   // Janela de Libras com Intérprete Certificado
   };
 
   const MIN_ORDER_PRICE = 300.0;
+  let currentUrgencyMultiplier = 1.0;
 
   // Elementos da Calculadora
-  const rangeMinutes = document.getElementById("rangeMinutes");
+  const slider = document.getElementById("sliderDuration") || document.getElementById("rangeMinutes");
   const displayMinutes = document.getElementById("displayMinutes");
   const checkLse = document.getElementById("checkLse");
   const checkAd = document.getElementById("checkAd");
   const checkLibras = document.getElementById("checkLibras");
-  const checkVisit = document.getElementById("checkVisit");
   const displayTotal = document.getElementById("displayTotal");
   const btnWhatsappBudget = document.getElementById("btnWhatsappBudget");
 
-  // Chips visuais da calculadora
-  const chipLse = document.getElementById("chipLse");
-  const chipAd = document.getElementById("chipAd");
-  const chipLibras = document.getElementById("chipLibras");
-  const chipVisit = document.getElementById("chipVisit");
-
   function updateCalculator() {
-    const minutes = parseInt(rangeMinutes.value, 10);
-    displayMinutes.innerText = `${minutes} min`;
+    if (!slider) return;
+    const minutes = parseInt(slider.value, 10);
+    displayMinutes.innerText = `${minutes} minuto${minutes > 1 ? "s" : ""}`;
 
     let ratePerMinute = 0;
-    let flatAdditions = 0;
     const selectedServices = [];
 
-    if (checkLse.checked) {
+    if (checkLse && checkLse.checked) {
       ratePerMinute += RATES.lse;
-      selectedServices.push("LSE com Foley & Sonoplastia");
-      chipLse.classList.add("selected");
-    } else {
-      chipLse.classList.remove("selected");
+      selectedServices.push("LSE com Foley");
+      if (checkLse.closest(".calc-check-card")) {
+        checkLse.closest(".calc-check-card").classList.add("active");
+      }
+    } else if (checkLse && checkLse.closest(".calc-check-card")) {
+      checkLse.closest(".calc-check-card").classList.remove("active");
     }
 
-    if (checkAd.checked) {
+    if (checkAd && checkAd.checked) {
       ratePerMinute += RATES.ad;
       selectedServices.push("Audiodescrição (AD)");
-      chipAd.classList.add("selected");
-    } else {
-      chipAd.classList.remove("selected");
+      if (checkAd.closest(".calc-check-card")) {
+        checkAd.closest(".calc-check-card").classList.add("active");
+      }
+    } else if (checkAd && checkAd.closest(".calc-check-card")) {
+      checkAd.closest(".calc-check-card").classList.remove("active");
     }
 
-    if (checkLibras.checked) {
+    if (checkLibras && checkLibras.checked) {
       ratePerMinute += RATES.libras;
       selectedServices.push("Janela de Libras");
-      chipLibras.classList.add("selected");
-    } else {
-      chipLibras.classList.remove("selected");
+      if (checkLibras.closest(".calc-check-card")) {
+        checkLibras.closest(".calc-check-card").classList.add("active");
+      }
+    } else if (checkLibras && checkLibras.closest(".calc-check-card")) {
+      checkLibras.closest(".calc-check-card").classList.remove("active");
     }
 
-    if (checkVisit && checkVisit.checked) {
-      flatAdditions += 800.0;
-      selectedServices.push("Visita Guiada & Mediação Cultural");
-      chipVisit.classList.add("selected");
-    } else if (chipVisit) {
-      chipVisit.classList.remove("selected");
-    }
+    let subtotal = minutes * ratePerMinute;
+    let total = subtotal * currentUrgencyMultiplier;
 
-    let total = (minutes * ratePerMinute) + flatAdditions;
     if (total > 0 && total < MIN_ORDER_PRICE) {
       total = MIN_ORDER_PRICE;
     }
 
-    // Formata valor em Real
     const formattedTotal = total.toLocaleString("pt-BR", {
       style: "currency",
       currency: "BRL"
     });
 
-    displayTotal.innerText = formattedTotal;
+    if (displayTotal) {
+      displayTotal.innerText = formattedTotal;
+    }
 
-    // Atualiza link direto de contratação no WhatsApp
     const servicesText = selectedServices.length > 0 ? selectedServices.join(" + ") : "Acessibilidade Audiovisual";
     const waText = encodeURIComponent(
-      `Olá, equipe da Sonar! Estive no site e simulei o serviço de ${servicesText} para uma obra de ${minutes} minutos (estimativa: ${formattedTotal}). Gostaria de receber a proposta formal para o meu projeto.`
+      `Olá, Ruan! Vim pelo site da Sonar e simulei o serviço de ${servicesText} para uma obra de ${minutes} minutos (estimativa: ${formattedTotal}). Gostaria de formalizar uma proposta para o meu projeto.`
     );
 
-    // Número oficial da Sonar (+55 81 9592-5442)
     const whatsappUrl = `https://wa.me/558195925442?text=${waText}`;
-    btnWhatsappBudget.href = whatsappUrl;
+    if (btnWhatsappBudget) {
+      btnWhatsappBudget.href = whatsappUrl;
+    }
 
-    // Atualiza botão flutuante também
     const floatBtn = document.getElementById("whatsappFloatBtn");
     if (floatBtn) {
       floatBtn.href = whatsappUrl;
     }
   }
 
-  // Event Listeners da Calculadora
-  rangeMinutes.addEventListener("input", updateCalculator);
-  checkLse.addEventListener("change", updateCalculator);
-  checkAd.addEventListener("change", updateCalculator);
-  checkLibras.addEventListener("change", updateCalculator);
-  if (checkVisit) checkVisit.addEventListener("change", updateCalculator);
+  if (slider) {
+    slider.addEventListener("input", updateCalculator);
+  }
+  if (checkLse) checkLse.addEventListener("change", updateCalculator);
+  if (checkAd) checkAd.addEventListener("change", updateCalculator);
+  if (checkLibras) checkLibras.addEventListener("change", updateCalculator);
 
-  chipLse.addEventListener("click", (e) => {
-    if (e.target.tagName !== "INPUT") {
-      checkLse.checked = !checkLse.checked;
-      updateCalculator();
-    }
-  });
-
-  chipAd.addEventListener("click", (e) => {
-    if (e.target.tagName !== "INPUT") {
-      checkAd.checked = !checkAd.checked;
-      updateCalculator();
-    }
-  });
-
-  chipLibras.addEventListener("click", (e) => {
-    if (e.target.tagName !== "INPUT") {
-      checkLibras.checked = !checkLibras.checked;
-      updateCalculator();
-    }
-  });
-
-  if (chipVisit) {
-    chipVisit.addEventListener("click", (e) => {
-      if (e.target.tagName !== "INPUT") {
-        checkVisit.checked = !checkVisit.checked;
+  // Pills de Minutagem Rápida
+  document.querySelectorAll(".calc-pill[data-min]").forEach((pill) => {
+    pill.addEventListener("click", (e) => {
+      document.querySelectorAll(".calc-pill[data-min]").forEach((p) => p.classList.remove("active"));
+      pill.classList.add("active");
+      if (slider) {
+        slider.value = pill.dataset.min;
         updateCalculator();
       }
     });
-  }
+  });
+
+  // Pills de Urgência
+  document.querySelectorAll(".calc-pill[data-urgency]").forEach((pill) => {
+    pill.addEventListener("click", () => {
+      document.querySelectorAll(".calc-pill[data-urgency]").forEach((p) => p.classList.remove("active"));
+      pill.classList.add("active");
+      currentUrgencyMultiplier = parseFloat(pill.dataset.urgency) || 1.0;
+      updateCalculator();
+    });
+  });
 
   // 2. Demonstrador Interativo (Cenas de Exemplo LSE com Foley)
   const SCENES = [
     {
-      title: "Animação Autoral (Curta-Metragem sem Diálogos)",
+      title: "Cena 1: Curta-Metragem de Animação sem Diálogos (Padrão Animage)",
       standardSubtitle: "— (Sem falas detectadas pela ferramenta comum) —",
       sonarSubtitle: "[Porta de madeira rangendo vagarosamente] [Passos pesados no assoalho]"
     },
     {
-      title: "Cena de Suspense / Clímax",
+      title: "Cena 2: Suspense e Tensão Sonora",
       standardSubtitle: "— ... —",
       sonarSubtitle: "[Trilha de cordas tensas em crescendo] [Respiração ofegante ao fundo]"
     },
     {
-      title: "Ambiente Natural & Transição Poética",
+      title: "Cena 3: Transição Poética & Ambiência Natural",
       standardSubtitle: "— (Legenda vazia) —",
       sonarSubtitle: "[Vento forte soprando pelas frestas] [Sino distante badalando 3 vezes]"
     }
@@ -167,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 3. Sintetizador Web Audio API para Demonstração de Foley (Zero dependências externas)
+  // 3. Sintetizador Web Audio API para Demonstração de Foley
   function playSynthesizedFoley(type = "creak") {
     try {
       const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -180,7 +166,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const now = audioCtx.currentTime;
 
       if (type === "creak") {
-        // Simulação de porta de madeira rangendo / assoalho
         osc.type = "sawtooth";
         osc.frequency.setValueAtTime(120, now);
         osc.frequency.exponentialRampToValueAtTime(320, now + 0.18);
@@ -193,7 +178,6 @@ document.addEventListener("DOMContentLoaded", () => {
         osc.start(now);
         osc.stop(now + 0.45);
       } else {
-        // Simulação de batida / impacto acústico
         osc.type = "triangle";
         osc.frequency.setValueAtTime(160, now);
         osc.frequency.exponentialRampToValueAtTime(45, now + 0.25);
@@ -205,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
         osc.stop(now + 0.25);
       }
     } catch (e) {
-      console.warn("Web Audio API não habilitada no navegador", e);
+      console.warn("Web Audio API não habilitada", e);
     }
   }
 
@@ -216,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Inicializa ícones Lucide (Context7)
+  // Inicializa ícones Lucide
   if (window.lucide && typeof window.lucide.createIcons === "function") {
     window.lucide.createIcons();
   }

@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const checkLse = document.getElementById("checkLse");
   const checkAd = document.getElementById("checkAd");
   const checkLibras = document.getElementById("checkLibras");
+  const checkVisit = document.getElementById("checkVisit");
   const displayTotal = document.getElementById("displayTotal");
   const btnWhatsappBudget = document.getElementById("btnWhatsappBudget");
 
@@ -22,12 +23,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const chipLse = document.getElementById("chipLse");
   const chipAd = document.getElementById("chipAd");
   const chipLibras = document.getElementById("chipLibras");
+  const chipVisit = document.getElementById("chipVisit");
 
   function updateCalculator() {
     const minutes = parseInt(rangeMinutes.value, 10);
     displayMinutes.innerText = `${minutes} min`;
 
     let ratePerMinute = 0;
+    let flatAdditions = 0;
     const selectedServices = [];
 
     if (checkLse.checked) {
@@ -54,7 +57,15 @@ document.addEventListener("DOMContentLoaded", () => {
       chipLibras.classList.remove("selected");
     }
 
-    let total = minutes * ratePerMinute;
+    if (checkVisit && checkVisit.checked) {
+      flatAdditions += 800.0;
+      selectedServices.push("Visita Guiada & Mediação Cultural");
+      chipVisit.classList.add("selected");
+    } else if (chipVisit) {
+      chipVisit.classList.remove("selected");
+    }
+
+    let total = (minutes * ratePerMinute) + flatAdditions;
     if (total > 0 && total < MIN_ORDER_PRICE) {
       total = MIN_ORDER_PRICE;
     }
@@ -89,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
   checkLse.addEventListener("change", updateCalculator);
   checkAd.addEventListener("change", updateCalculator);
   checkLibras.addEventListener("change", updateCalculator);
+  if (checkVisit) checkVisit.addEventListener("change", updateCalculator);
 
   chipLse.addEventListener("click", (e) => {
     if (e.target.tagName !== "INPUT") {
@@ -110,6 +122,15 @@ document.addEventListener("DOMContentLoaded", () => {
       updateCalculator();
     }
   });
+
+  if (chipVisit) {
+    chipVisit.addEventListener("click", (e) => {
+      if (e.target.tagName !== "INPUT") {
+        checkVisit.checked = !checkVisit.checked;
+        updateCalculator();
+      }
+    });
+  }
 
   // 2. Demonstrador Interativo (Cenas de Exemplo LSE com Foley)
   const SCENES = [

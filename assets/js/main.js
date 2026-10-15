@@ -86,11 +86,26 @@ document.addEventListener("DOMContentLoaded", () => {
   const displayTotal = document.getElementById("displayTotal");
   const btnWhatsappBudget = document.getElementById("btnWhatsappBudget");
 
+  function syncChip(checkbox, chipId) {
+    if (!checkbox) return;
+    const chip = document.getElementById(chipId) || checkbox.closest(".chip-option");
+    if (!chip) return;
+    if (checkbox.checked) {
+      chip.classList.add("selected");
+      chip.setAttribute("aria-checked", "true");
+    } else {
+      chip.classList.remove("selected");
+      chip.setAttribute("aria-checked", "false");
+    }
+  }
+
   function updateCalculator() {
     if (!slider) return;
     const minutes = parseInt(slider.value, 10);
+    slider.setAttribute("aria-valuenow", minutes);
+
     if (displayMinutes) {
-      displayMinutes.innerText = `${minutes} minuto${minutes > 1 ? "s" : ""}`;
+      displayMinutes.innerText = `${minutes} min`;
     }
 
     let ratePerMinute = 0;
@@ -99,32 +114,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (checkLse && checkLse.checked) {
       ratePerMinute += RATES.lse;
       selectedServices.push("LSE com Foley");
-      if (checkLse.closest(".calc-check-card")) {
-        checkLse.closest(".calc-check-card").classList.add("active");
-      }
-    } else if (checkLse && checkLse.closest(".calc-check-card")) {
-      checkLse.closest(".calc-check-card").classList.remove("active");
     }
+    syncChip(checkLse, "chipLse");
 
     if (checkAd && checkAd.checked) {
       ratePerMinute += RATES.ad;
       selectedServices.push("Audiodescrição (AD)");
-      if (checkAd.closest(".calc-check-card")) {
-        checkAd.closest(".calc-check-card").classList.add("active");
-      }
-    } else if (checkAd && checkAd.closest(".calc-check-card")) {
-      checkAd.closest(".calc-check-card").classList.remove("active");
     }
+    syncChip(checkAd, "chipAd");
 
     if (checkLibras && checkLibras.checked) {
       ratePerMinute += RATES.libras;
       selectedServices.push("Janela de Libras");
-      if (checkLibras.closest(".calc-check-card")) {
-        checkLibras.closest(".calc-check-card").classList.add("active");
-      }
-    } else if (checkLibras && checkLibras.closest(".calc-check-card")) {
-      checkLibras.closest(".calc-check-card").classList.remove("active");
     }
+    syncChip(checkLibras, "chipLibras");
 
     let subtotal = minutes * ratePerMinute;
     let total = subtotal * currentUrgencyMultiplier;
@@ -164,6 +167,28 @@ document.addEventListener("DOMContentLoaded", () => {
   if (checkLse) checkLse.addEventListener("change", updateCalculator);
   if (checkAd) checkAd.addEventListener("change", updateCalculator);
   if (checkLibras) checkLibras.addEventListener("change", updateCalculator);
+
+  // Torna os cards chip-option clicáveis e navegáveis via teclado
+  document.querySelectorAll(".chip-option").forEach((chip) => {
+    chip.addEventListener("click", (e) => {
+      const checkbox = chip.querySelector("input[type=checkbox]");
+      if (checkbox && e.target !== checkbox) {
+        checkbox.checked = !checkbox.checked;
+        updateCalculator();
+      }
+    });
+
+    chip.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        const checkbox = chip.querySelector("input[type=checkbox]");
+        if (checkbox) {
+          checkbox.checked = !checkbox.checked;
+          updateCalculator();
+        }
+      }
+    });
+  });
 
   // Seletores Rápidos de Minutos
   document.querySelectorAll(".calc-pill[data-min]").forEach((pill) => {

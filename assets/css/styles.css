@@ -17,8 +17,8 @@
   
   --text-pure: #ffffff;
   --text-soft: #e2e8f0;
-  --text-muted: #94a3b8;
-  --text-dim: #64748b;
+  --text-muted: #cbd5e1;
+  --text-dim: #94a3b8;
   
   --radius-sm: 8px;
   --radius-md: 14px;
@@ -924,11 +924,52 @@ body.high-contrast .a11y-btn:hover {
   transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+.calc-quick-pills {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.85rem;
+}
+
+.calc-pill {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-soft);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.calc-pill:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.calc-pill:focus-visible {
+  outline: 2px solid var(--sonar-coral);
+  outline-offset: 2px;
+}
+
+.calc-pill.active {
+  background: rgba(244, 63, 94, 0.2);
+  border-color: var(--sonar-coral);
+  color: #ffffff;
+  box-shadow: 0 0 14px rgba(244, 63, 94, 0.35);
+}
+
 .calc-chips {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 1.1rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 /* UIverse Interactive Toggle Cards */
@@ -951,6 +992,11 @@ body.high-contrast .a11y-btn:hover {
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
+}
+
+.chip-option:focus-visible {
+  outline: 2px solid var(--sonar-coral);
+  outline-offset: 2px;
 }
 
 .chip-option.selected {

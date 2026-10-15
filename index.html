@@ -45,7 +45,7 @@
   <!-- Navbar Refinada e Fina -->
   <header class="navbar" role="banner">
     <div class="container nav-container">
-      <a href="#" class="brand-link" aria-label="Página inicial da SONAR Acessibilidade">
+      <a href="#" class="brand-link" aria-label="SONAR Acessibilidade Audiovisual - Página Inicial">
         <img src="./assets/img/logo_sonar_hd.jpg" alt="Logo SONAR" class="brand-logo-img">
         <div>
           <span class="brand-title">SONAR</span>
@@ -214,7 +214,7 @@
             <span class="feed-tag">Teatro & Palco • SIC Recife</span>
           </div>
           <div class="feed-body">
-            <h4 class="feed-title">Espetáculo "Helô Em Busca do Baobá Sagrado"</h4>
+            <h3 class="feed-title">Espetáculo "Helô Em Busca do Baobá Sagrado"</h3>
             <p class="feed-desc">
               Audiodescrição ao vivo e mediação no Espaço Daruê Malungo. Projeto incentivado pelo SIC (Sistema de Incentivo à Cultura) e Prefeitura do Recife.
             </p>
@@ -228,7 +228,7 @@
             <span class="feed-tag">Audiodescrição ao Vivo</span>
           </div>
           <div class="feed-body">
-            <h4 class="feed-title">Narração Cênica e Tradução Sensorial</h4>
+            <h3 class="feed-title">Narração Cênica e Tradução Sensorial</h3>
             <p class="feed-desc">
               Tradução das expressões, movimentações, iluminação e figurinos para o público cego ou com baixa visão, sem interrupção das falas dos atores.
             </p>
@@ -242,7 +242,7 @@
             <span class="feed-tag">Tecnologia Assistiva</span>
           </div>
           <div class="feed-body">
-            <h4 class="feed-title">Central Sem Fio para Plateias</h4>
+            <h3 class="feed-title">Central Sem Fio para Plateias</h3>
             <p class="feed-desc">
               Estrutura móvel completa com fones individuais, transmissores de rádio frequência multicanal e higienização para grandes eventos e festivais.
             </p>
@@ -256,7 +256,7 @@
             <span class="feed-tag">Mediação de Público</span>
           </div>
           <div class="feed-body">
-            <h4 class="feed-title">Formação de Público & Acolhimento</h4>
+            <h3 class="feed-title">Formação de Público & Acolhimento</h3>
             <p class="feed-desc">
               Garantia de acolhimento atitudinal em salas de espetáculo e mostras de cinema, democratizando o acesso à cultura para todas as pessoas.
             </p>
@@ -270,7 +270,7 @@
             <span class="feed-tag">Cinema & Animação</span>
           </div>
           <div class="feed-body">
-            <h4 class="feed-title">Festival Animage 2026</h4>
+            <h3 class="feed-title">Festival Animage 2026</h3>
             <p class="feed-desc">
               Acessibilidade integral em <strong>20 sessões de curtas em 10 noites de festival</strong>, com LSE de sonoplastia de alta precisão e visitas mediadas.
             </p>
@@ -284,7 +284,7 @@
             <span class="feed-tag">Espaço Daruê Malungo</span>
           </div>
           <div class="feed-body">
-            <h4 class="feed-title">Decupagem Técnica de Palco</h4>
+            <h3 class="feed-title">Decupagem Técnica de Palco</h3>
             <p class="feed-desc">
               Trabalho prévio de alinhamento com a direção e elenco para roteirização detalhada de cada movimento, gesto e efeito acústico da obra.
             </p>
@@ -503,77 +503,86 @@
         </p>
       </div>
 
-      <div class="calc-card">
+      <div class="glass-panel calc-card">
         
-        <!-- Duração em Minutos -->
-        <div class="calc-group">
+        <!-- Duração em Minutos com Slider Neon -->
+        <div class="calc-slider-group">
           <div class="calc-label-row">
-            <label class="calc-label" for="sliderDuration">Duração Total da Obra:</label>
-            <span id="displayMinutes" class="calc-value-badge">15 minutos</span>
+            <label for="sliderDuration" style="font-size: 0.95rem; font-weight: 700; color: #ffffff;">Duração Total da Obra:</label>
+            <span id="displayMinutes" class="calc-value-display">15 min</span>
           </div>
-          <input type="range" id="sliderDuration" class="calc-slider" min="1" max="120" value="15" step="1">
-          <div class="calc-quick-pills">
-            <button class="calc-pill" data-min="5">Curta Rápido (5 min)</button>
-            <button class="calc-pill active" data-min="15">Curta Padrão (15 min)</button>
-            <button class="calc-pill" data-min="30">Média-Metragem (30 min)</button>
-            <button class="calc-pill" data-min="75">Longa-Metragem (75 min)</button>
-            <button class="calc-pill" data-min="100">Festival (100 min)</button>
+          <input type="range" id="sliderDuration" class="custom-range" min="1" max="120" value="15" step="1" aria-label="Duração da obra em minutos" aria-valuemin="1" aria-valuemax="120" aria-valuenow="15">
+          <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-dim); margin-top: 0.4rem;">
+            <span>1 min (Teaser)</span>
+            <span>15 min (Curta Padrão)</span>
+            <span>60 min (Média)</span>
+            <span>120 min (Longa)</span>
           </div>
-        </div>
 
-        <!-- Serviços Selecionados -->
-        <div class="calc-group">
-          <label class="calc-label" style="margin-bottom: 0.85rem;">Serviços de Acessibilidade Inclusos:</label>
-          <div class="calc-services-grid">
-            
-            <label class="calc-check-card active">
-              <input type="checkbox" id="checkLse" checked>
-              <div>
-                <div class="calc-check-title">Legenda LSE com Foley</div>
-                <div class="calc-check-sub">Decupagem de sons, ruídos e falas (ABNT NBR 15290) • R$ 35/min</div>
-              </div>
-            </label>
-
-            <label class="calc-check-card">
-              <input type="checkbox" id="checkAd">
-              <div>
-                <div class="calc-check-title">Audiodescrição (AD) Completa</div>
-                <div class="calc-check-sub">Roteirização, gravação profissional e mixagem • R$ 55/min</div>
-              </div>
-            </label>
-
-            <label class="calc-check-card">
-              <input type="checkbox" id="checkLibras">
-              <div>
-                <div class="calc-check-title">Janela de Libras Broadcast</div>
-                <div class="calc-check-sub">Intérprete em estúdio, gravação e edição ANCINE • R$ 60/min</div>
-              </div>
-            </label>
-
+          <!-- Pílulas de Seleção Rápida de Minutagem -->
+          <div class="calc-quick-pills" role="group" aria-label="Seleção rápida de minutagem">
+            <button type="button" class="calc-pill" data-min="5">Curta Rápido (5 min)</button>
+            <button type="button" class="calc-pill active" data-min="15">Curta Padrão (15 min)</button>
+            <button type="button" class="calc-pill" data-min="30">Média-Metragem (30 min)</button>
+            <button type="button" class="calc-pill" data-min="75">Longa-Metragem (75 min)</button>
+            <button type="button" class="calc-pill" data-min="100">Festival (100 min)</button>
           </div>
         </div>
 
-        <!-- Prazo de Entrega -->
-        <div class="calc-group">
-          <label class="calc-label" style="margin-bottom: 0.85rem;">Urgência de Entrega:</label>
-          <div class="calc-quick-pills" style="margin-top: 0;">
-            <button class="calc-pill active" data-urgency="1.0">Padrão (7 a 10 dias úteis)</button>
-            <button class="calc-pill" data-urgency="1.25">Acelerado (3 a 5 dias úteis) +25%</button>
-            <button class="calc-pill" data-urgency="1.5">Festival Crunch (&le; 48h) +50%</button>
+        <!-- Chips de Seleção de Serviços com UIverse Cards -->
+        <div class="calc-label-row" style="margin-top: 2rem; margin-bottom: 0.8rem;">
+          <span style="font-size: 0.95rem; font-weight: 700; color: #ffffff;">Recursos de Acessibilidade Inclusos:</span>
+        </div>
+
+        <div class="calc-chips">
+          
+          <div id="chipLse" class="chip-option selected" role="checkbox" aria-checked="true" tabindex="0">
+            <input type="checkbox" id="checkLse" class="chip-checkbox" checked aria-label="Legenda LSE com Foley">
+            <div>
+              <div style="font-size: 0.92rem; font-weight: 700; color: #ffffff;">LSE com Foley & Ruídos</div>
+              <div style="font-size: 0.78rem; color: var(--sonar-cyan); font-weight: 600;">R$ 35,00 / min • ABNT NBR 15290</div>
+            </div>
           </div>
+
+          <div id="chipAd" class="chip-option" role="checkbox" aria-checked="false" tabindex="0">
+            <input type="checkbox" id="checkAd" class="chip-checkbox" aria-label="Audiodescrição Completa">
+            <div>
+              <div style="font-size: 0.92rem; font-weight: 700; color: #ffffff;">Audiodescrição (AD) Completa</div>
+              <div style="font-size: 0.78rem; color: var(--sonar-coral); font-weight: 600;">R$ 55,00 / min • ABNT NBR 16452</div>
+            </div>
+          </div>
+
+          <div id="chipLibras" class="chip-option" role="checkbox" aria-checked="false" tabindex="0">
+            <input type="checkbox" id="checkLibras" class="chip-checkbox" aria-label="Janela de Libras Broadcast">
+            <div>
+              <div style="font-size: 0.92rem; font-weight: 700; color: #ffffff;">Janela de Libras Broadcast</div>
+              <div style="font-size: 0.78rem; color: var(--sonar-amber); font-weight: 600;">R$ 60,00 / min • Padrão ANCINE</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Prazo e Urgência de Entrega -->
+        <div class="calc-label-row" style="margin-top: 1rem; margin-bottom: 0.8rem;">
+          <span style="font-size: 0.95rem; font-weight: 700; color: #ffffff;">Prazo e Urgência de Entrega:</span>
+        </div>
+        <div class="calc-quick-pills" role="group" aria-label="Prazo e urgência de entrega">
+          <button type="button" class="calc-pill active" data-urgency="1.0">Padrão (7 a 10 dias úteis)</button>
+          <button type="button" class="calc-pill" data-urgency="1.25">Acelerado (3 a 5 dias úteis) +25%</button>
+          <button type="button" class="calc-pill" data-urgency="1.5">Festival Crunch (&le; 48h) +50%</button>
         </div>
 
         <!-- Resultado e Botão de Ação -->
-        <div class="calc-result-box">
+        <div class="calc-result-box" style="margin-top: 2.2rem;">
           <div>
             <div class="calc-total-label">Estimativa de Investimento</div>
             <div id="displayTotal" class="calc-total-value">R$ 525,00</div>
-            <div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 3px;">
+            <div style="font-size: 0.78rem; color: var(--text-dim); margin-top: 4px;">
               * Valores com entrega padrão. Descontos progressivos para lotes de festivais.
             </div>
           </div>
 
-          <a id="btnWhatsappBudget" href="#" target="_blank" rel="noopener" class="btn btn-coral" style="padding: 0.85rem 1.6rem; font-size: 0.95rem;">
+          <a id="btnWhatsappBudget" href="#" target="_blank" rel="noopener" class="btn btn-coral btn-shimmer" style="padding: 0.95rem 1.8rem; font-size: 1rem;">
             <i data-lucide="message-circle"></i> Fechar Serviço via WhatsApp &rarr;
           </a>
         </div>

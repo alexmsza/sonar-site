@@ -167,6 +167,60 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // 3. Sintetizador Web Audio API para Demonstração de Foley (Zero dependências externas)
+  function playSynthesizedFoley(type = "creak") {
+    try {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      const now = audioCtx.currentTime;
+
+      if (type === "creak") {
+        // Simulação de porta de madeira rangendo / assoalho
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(120, now);
+        osc.frequency.exponentialRampToValueAtTime(320, now + 0.18);
+        osc.frequency.exponentialRampToValueAtTime(80, now + 0.45);
+
+        gainNode.gain.setValueAtTime(0.01, now);
+        gainNode.gain.linearRampToValueAtTime(0.2, now + 0.1);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+
+        osc.start(now);
+        osc.stop(now + 0.45);
+      } else {
+        // Simulação de batida / impacto acústico
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(160, now);
+        osc.frequency.exponentialRampToValueAtTime(45, now + 0.25);
+
+        gainNode.gain.setValueAtTime(0.3, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+
+        osc.start(now);
+        osc.stop(now + 0.25);
+      }
+    } catch (e) {
+      console.warn("Web Audio API não habilitada no navegador", e);
+    }
+  }
+
+  const btnPlayFoleyCue = document.getElementById("btnPlayFoleyCue");
+  if (btnPlayFoleyCue) {
+    btnPlayFoleyCue.addEventListener("click", () => {
+      playSynthesizedFoley(currentSceneIdx % 2 === 0 ? "creak" : "thud");
+    });
+  }
+
+  // Inicializa ícones Lucide (Context7)
+  if (window.lucide && typeof window.lucide.createIcons === "function") {
+    window.lucide.createIcons();
+  }
+
   // Executa cálculo inicial
   updateCalculator();
 });

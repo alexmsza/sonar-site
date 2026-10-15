@@ -621,72 +621,114 @@ body {
   color: var(--sonar-coral);
 }
 
+/* UIverse.io Inspired Custom Neon Range Slider */
 .custom-range {
-  width: 100%;
-  height: 8px;
-  border-radius: 4px;
-  background: #1e2436;
-  outline: none;
   -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, #1e2436 0%, #2a344d 100%);
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.custom-range::-webkit-slider-runnable-track {
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--sonar-coral), var(--sonar-cyan));
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.3);
 }
 
 .custom-range::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 24px;
-  height: 24px;
+  appearance: none;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  background: var(--sonar-coral);
-  cursor: pointer;
-  box-shadow: 0 0 12px var(--sonar-coral-glow);
-  transition: transform 0.15s ease;
+  background: #ffffff;
+  border: 3px solid var(--sonar-coral);
+  box-shadow: 0 0 15px rgba(244, 63, 94, 0.9), 0 0 6px rgba(255, 255, 255, 0.8);
+  cursor: grab;
+  margin-top: -8px;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.custom-range::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
+.custom-range::-webkit-slider-thumb:hover,
+.custom-range::-webkit-slider-thumb:active {
+  transform: scale(1.25);
+  box-shadow: 0 0 25px rgba(244, 63, 94, 1), 0 0 10px rgba(14, 165, 233, 0.9);
+  cursor: grabbing;
+}
+
+.custom-range::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid var(--sonar-coral);
+  box-shadow: 0 0 15px rgba(244, 63, 94, 0.9);
+  cursor: grab;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .calc-chips {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1.1rem;
   margin-bottom: 2.5rem;
 }
 
+/* UIverse Interactive Toggle Cards */
 .chip-option {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  padding: 0.9rem 1rem;
+  border-radius: var(--radius-md);
+  padding: 1rem 1.15rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   user-select: none;
+  overflow: hidden;
+}
+
+.chip-option:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
 }
 
 .chip-option.selected {
-  background: rgba(244, 63, 94, 0.12);
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.15) 0%, rgba(14, 165, 233, 0.08) 100%);
   border-color: var(--sonar-coral);
-  box-shadow: 0 0 15px rgba(244, 63, 94, 0.15);
+  box-shadow: 0 0 20px rgba(244, 63, 94, 0.2), inset 0 0 12px rgba(244, 63, 94, 0.08);
+  transform: translateY(-2px);
 }
 
 .chip-checkbox {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   accent-color: var(--sonar-coral);
+  cursor: pointer;
 }
 
 .calc-result-box {
   background: rgba(8, 9, 13, 0.95);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 2rem;
+  padding: 2.2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 1.8rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .calc-total-label {
@@ -694,22 +736,147 @@ body {
   color: var(--text-dim);
   text-transform: uppercase;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
 }
 
 .calc-total-value {
   font-family: var(--font-mono);
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 5vw, 2.8rem);
   font-weight: 900;
-  color: var(--text-pure);
+  color: #ffffff;
+  background: linear-gradient(135deg, #ffffff 40%, var(--sonar-amber) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
+/* UIverse Shimmer Light Sweep on Primary Buttons */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -70%;
+  width: 45%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    rgba(255, 255, 255, 0) 10%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0) 90%
+  );
+  transform: rotate(25deg);
+  transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.btn-shimmer:hover::after {
+  left: 140%;
+}
+
+/* UIverse Soundwave Equalizer Animation */
+.soundwave-equalizer {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  height: 22px;
+  padding: 0 6px;
+  vertical-align: middle;
+}
+
+.soundwave-equalizer .bar {
+  display: inline-block;
+  width: 3px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(180deg, var(--sonar-coral), var(--sonar-cyan));
+  animation: equalize 1.2s ease-in-out infinite alternate;
+}
+
+.soundwave-equalizer .bar:nth-child(1) { height: 35%; animation-delay: -0.4s; }
+.soundwave-equalizer .bar:nth-child(2) { height: 85%; animation-delay: -0.2s; }
+.soundwave-equalizer .bar:nth-child(3) { height: 100%; animation-delay: -0.7s; }
+.soundwave-equalizer .bar:nth-child(4) { height: 55%; animation-delay: -0.1s; }
+.soundwave-equalizer .bar:nth-child(5) { height: 90%; animation-delay: -0.5s; }
+.soundwave-equalizer .bar:nth-child(6) { height: 45%; animation-delay: -0.3s; }
+.soundwave-equalizer .bar:nth-child(7) { height: 75%; animation-delay: -0.6s; }
+
+@keyframes equalize {
+  0% { transform: scaleY(0.3); opacity: 0.6; }
+  50% { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(0.45); opacity: 0.75; }
+}
+
+/* UIverse Radar Live Status Badge */
+.uiverse-radar-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--radius-full);
+  background: rgba(14, 165, 233, 0.08);
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-soft);
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.radar-ping-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  height: 10px;
+}
+
+.radar-ping {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #10b981;
+  animation: ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+  opacity: 0.75;
+}
+
+.radar-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+@keyframes ping {
+  70%, 100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* Lucide Icon Helpers */
+.lucide {
+  width: 1.15em;
+  height: 1.15em;
+  vertical-align: -0.18em;
+  display: inline-block;
+  stroke-width: 2.2;
 }
 
 /* Footer */
 footer {
   border-top: 1px solid var(--border-subtle);
   background: #040508;
-  padding: 4rem 0 2rem;
-  margin-top: 4rem;
+  padding: 4.5rem 0 2.5rem;
+  margin-top: 5rem;
 }
 
 .footer-container {
@@ -719,7 +886,7 @@ footer {
   flex-wrap: wrap;
   gap: 2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding-bottom: 2rem;
+  padding-bottom: 2.5rem;
 }
 
 .footer-copy {
@@ -729,27 +896,74 @@ footer {
   color: var(--text-dim);
 }
 
-/* Floating WhatsApp Button */
-.whatsapp-float {
+/* UIverse Floating WhatsApp with Pulse Ring & Tooltip */
+.whatsapp-float-container {
   position: fixed;
   bottom: 25px;
   right: 25px;
-  width: 60px;
-  height: 60px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.whatsapp-tooltip {
+  background: rgba(8, 9, 13, 0.95);
+  color: #ffffff;
+  border: 1px solid rgba(37, 211, 102, 0.35);
+  padding: 7px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+}
+
+.whatsapp-float-container:hover .whatsapp-tooltip {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.whatsapp-float {
+  position: relative;
+  width: 62px;
+  height: 62px;
   background: #25d366;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-  z-index: 999;
+  box-shadow: 0 6px 25px rgba(37, 211, 102, 0.45);
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .whatsapp-float:hover {
   transform: scale(1.1);
-  box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.7);
+}
+
+.whatsapp-pulse-ring {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  border: 2px solid #25d366;
+  animation: pulse-ring 2.2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.9; }
+  50% { transform: scale(1.4); opacity: 0; }
+  100% { transform: scale(1.4); opacity: 0; }
 }
 
 .whatsapp-float svg {
